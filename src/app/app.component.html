@@ -1,0 +1,107 @@
+<form nz-form [formGroup]="validateForm">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Não é um email válido!">
+      <input nz-input formControlName="email" id="email" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>Password</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor coloque sua senha!">
+      <input
+        nz-input
+        type="password"
+        id="password"
+        formControlName="password"
+        (ngModelChange)="updateConfirmValidator()"
+      />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired>Confirm Password</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl">
+      <input nz-input type="password" formControlName="checkPassword" id="checkPassword" />
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          Por favor confirme a senha!
+        </ng-container>
+        <ng-container *ngIf="control.hasError('confirm')">
+          As senhas devem ser igual!
+        </ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  
+  
+  <nz-tabset>
+    <nz-tab nzTitle="Tab 1">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="banco" nzRequired>Banco</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzErrorTip="Selecione um banco!">
+          <nz-select
+            id="banco"
+            formControlName="banco"
+            [nzPlaceHolder]="placeholderVar"
+            (ngModelChange)=changePlaceholder($event)
+            (ngModelChange)=showInput($event)
+          >
+            <nz-option nzValue="sql" nzLabel="sql"></nz-option>
+            <nz-option nzValue="mongo" nzLabel="mongo"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzRequired nzFor="url">Url</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzErrorTip="Preencha a url!">
+          <input id="url" type="text" nz-input formControlName="url" [placeholder]="placeholderVar" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item *ngIf="teste">
+        <nz-form-label [nzSpan]="5" nzRequired nzFor="porta">Porta</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzErrorTip="Preencha a url!">
+          <input id="porta" type="text" nz-input formControlName="porta"/>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-tab>
+
+    <nz-tab nzTitle="Tab 2">
+      
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="nickname" nzRequired>
+          <span>
+            Nickname
+            <i
+              nz-icon
+              nz-tooltip
+              nzTitle="Como sera visto pelos outros"
+              nzType="question-circle"
+              nzTheme="outline"
+            ></i>
+          </span>
+        </nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor coloque seu nickname!">
+          <input nz-input id="nickname" formControlName="nickname" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-tab>
+
+    <nz-tab nzTitle="Tab 3">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="website">Website</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor coloque o website!">
+          <input nz-input id="website" formControlName="website" placeholder="website" />
+        </nz-form-control>
+      </nz-form-item>    </nz-tab>
+  </nz-tabset>
+
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <label nz-checkbox formControlName="agree">
+        <span>I have read the <a>agreement</a></span>
+      </label>
+    </nz-form-control>
+  </nz-form-item>
+  
+</form>
