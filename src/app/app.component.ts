@@ -9,7 +9,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class AppComponent {
   title = 'exercForm';
   placeholderVar = 'exemplo vazio';
-  teste: boolean;
+  connection: boolean;
 
   validateForm: FormGroup;
 
@@ -20,8 +20,13 @@ export class AppComponent {
     }
   }
 
-  getCaptcha(e: MouseEvent): void {
-    e.preventDefault();
+  changeConnection(value: string): void {
+    if (value == 'webservice') {
+      this.connection = true;
+    }
+    if (value == 'bancodedados') {
+      this.connection = false;
+    }
   }
 
   changePlaceholder(value: string): void {
@@ -50,8 +55,13 @@ export class AppComponent {
       usuario: [null, Validators.required],
       senha: [null],
       classeServer: [null],
-      
+      conexao:[null, Validators.required],
+      urlDesenvolvimento: [null],
+      urlHomologacao: [null],
+      urlProducao: [null],
       banco: [null],
+
+      teste:[null]
     });
   }
 }

@@ -1,97 +1,144 @@
 <form nz-form [formGroup]="validateForm">
-    
-  <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzFor="banco" nzRequired>Sistema do banco</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzErrorTip="Selecione um banco!">
-        <nz-select
-          id="banco"
-          formControlName="banco"
-          [nzPlaceHolder]="placeholderVar"
-          (ngModelChange)=changePlaceholder($event)
-        >
-        <nz-option nzValue="mssqlserver" nzLabel="MS SQL Server"></nz-option>
-        <nz-option nzValue="oracle" nzLabel="Oracle"></nz-option>
-        <nz-option nzValue="postgresql" nzLabel="PostgreSQL"></nz-option>
-        <nz-option nzValue="mysql" nzLabel="MySQL"></nz-option>
-
-        </nz-select>
-      </nz-form-control>
-    </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired nzFor="email">Url JBDC</nz-form-label>
-    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Insira a Url!">
-      <input nz-input type="text" formControlName="url" id="url" [placeholder]="placeholderVar"/>
+    <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired nzFor="email">Nome da conexão</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Insira o nome da conexão!">
+      <input nz-input type="text" formControlName="conexao" id="conexao"/>
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzRequired nzFor="url">Servidor</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzErrorTip="Insira o servidor!">
-        <input id="servidor" type="text" nz-input formControlName="servidor"/>
-      </nz-form-control>
-    </nz-form-item>
+    <nz-form-label [nzSpan]="5" nzFor="banco" nzRequired>Tipo de conexao</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="Selecione um tipo de conexao!">
+      <nz-select
+        id="banco"
+        formControlName="banco"
+        (ngModelChange)=changeConnection($event)
+      >
+      <nz-option nzValue="webservice" nzLabel="WebService"></nz-option>
+      <nz-option nzValue="bancodedados" nzLabel="Banco de dados"></nz-option>
 
-  <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzRequired nzFor="url">Porta</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzErrorTip="Insira a porta!">
-        <input id="porta" type="text" nz-input formControlName="porta"/>
-      </nz-form-control>
+      </nz-select>
+    </nz-form-control>
   </nz-form-item>
 
-  <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzRequired nzFor="url">Nome da base</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzErrorTip="Insira o nome da base!">
-        <input id="base" type="text" nz-input formControlName="base"/>
-      </nz-form-control>
-  </nz-form-item>
+  <nz-tabset>
+    <nz-tab nzTitle=" Produção">
+      <nz-form-item *ngIf="connection">
+        <nz-form-item>
+          <nz-form-label [nzSm]="5" [nzXs]="24"  nzFor="urlProducao">Url Produção</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input type="text" formControlName="urlProducao" id="urlProducao"/>
+          </nz-form-control>
+        </nz-form-item>
+        
+        
 
-  <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzRequired nzFor="url">Usuário</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzErrorTip="Insira o usuário!">
-        <input id="usuario" type="text" nz-input formControlName="usuario"/>
-      </nz-form-control>
-  </nz-form-item>
+        
+      </nz-form-item>
 
-  <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzFor="url">Senha</nz-form-label>
-      <nz-form-control [nzSpan]="12">
-        <input id="senha" type="text" nz-input formControlName="senha"/>
-      </nz-form-control>
-  </nz-form-item>
-
-  <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzFor="url">Nome da classe do server</nz-form-label>
-      <nz-form-control [nzSpan]="12">
-        <input id="classeServer" type="text" nz-input formControlName="classeServer"/>
-      </nz-form-control>
-  </nz-form-item>
-
- 
-  
+      <nz-form-item *ngIf="!connection">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzFor="banco" nzRequired>Sistema do banco</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzErrorTip="Selecione um banco!">
+            <nz-select
+              id="banco"
+              formControlName="banco"
+              [nzPlaceHolder]="placeholderVar"
+              (ngModelChange)=changePlaceholder($event)
+            >
+            <nz-option nzValue="mssqlserver" nzLabel="MS SQL Server"></nz-option>
+            <nz-option nzValue="oracle" nzLabel="Oracle"></nz-option>
+            <nz-option nzValue="postgresql" nzLabel="PostgreSQL"></nz-option>
+            <nz-option nzValue="mysql" nzLabel="MySQL"></nz-option>
     
-      
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
     
+        <nz-form-item>
+          <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired nzFor="url">Url JBDC</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Insira a Url!">
+            <input nz-input type="text" formControlName="url" id="url" [placeholder]="placeholderVar"/>
+          </nz-form-control>
+        </nz-form-item>
+    
+        <nz-form-item>
+            <nz-form-label [nzSpan]="5" nzRequired nzFor="servidor">Servidor</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzErrorTip="Insira o servidor!">
+              <input id="servidor" type="text" nz-input formControlName="servidor"/>
+            </nz-form-control>
+        </nz-form-item>
+    
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzRequired nzFor="porta">Porta</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzErrorTip="Insira a porta!">
+            <input id="porta" type="text" nz-input formControlName="porta"/>
+          </nz-form-control>
+        </nz-form-item>
+    
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzRequired nzFor="base">Nome da base</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzErrorTip="Insira o nome da base!">
+            <input id="base" type="text" nz-input formControlName="base"/>
+          </nz-form-control>
+        </nz-form-item>
+    
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzRequired nzFor="usuario">Usuário</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzErrorTip="Insira o usuário!">
+            <input id="usuario" type="text" nz-input formControlName="usuario"/>
+          </nz-form-control>
+        </nz-form-item>
+    
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzFor="senha">Senha</nz-form-label>
+          <nz-form-control [nzSpan]="12">
+            <input id="senha" type="text" nz-input formControlName="senha"/>
+          </nz-form-control>
+        </nz-form-item>
+    
+        <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzFor="classeServer">Nome da classe do server</nz-form-label>
+          <nz-form-control [nzSpan]="12">
+            <input id="classeServer" type="text" nz-input formControlName="classeServer"/>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-form-item>
+    </nz-tab>
 
-    
-      
-      <!--<nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="nickname" nzRequired>
-          <span>
-            Nickname
-            <i
-              nz-icon
-              nz-tooltip
-              nzTitle="Como sera visto pelos outros"
-              nzType="question-circle"
-              nzTheme="outline"
-            ></i>
-          </span>
-        </nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor coloque seu nickname!">
-          <input nz-input id="nickname" formControlName="nickname" />
+    <nz-tab nzTitle="Homologação">
+      <nz-form-item *ngIf="connection">
+        <nz-form-label [nzSm]="5" [nzXs]="24"  nzFor="urlHomologacao">Url Homologação</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input type="text" formControlName="urlHomologacao" id="urlHomologacao"/>
         </nz-form-control>
-      </nz-form-item>-->
-    
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="5" [nzXs]="24"  nzFor="teste">teste em todos</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input type="text" formControlName="teste" id="teste"/>
+        </nz-form-control>
+      </nz-form-item>   
+    </nz-tab>
+
+    <nz-tab nzTitle="Desenvolvimento">
+      <nz-form-item *ngIf="connection">
+        <nz-form-label [nzSm]="5" [nzXs]="24"  nzFor="urlDesenvolvimento">Url Desenvolvimento</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input type="text" formControlName="urlDesenvolvimento" id="urlDesenvolvimento"/>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="teste">teste em todos</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input type="text" formControlName="teste" id="teste"/>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-tab>
+
+  </nz-tabset>
 
 </form>

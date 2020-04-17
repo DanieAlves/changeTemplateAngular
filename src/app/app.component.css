@@ -14,3 +14,7 @@ nz-select {
   width: 200px;
   margin-bottom: 8px;
 }
+
+nz-tabset {
+  margin-left: 80px;
+}
