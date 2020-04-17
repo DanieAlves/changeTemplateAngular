@@ -20,38 +20,22 @@ export class AppComponent {
     }
   }
 
-  updateConfirmValidator(): void {
-    Promise.resolve().then(() => this.validateForm.controls.checkPassword.updateValueAndValidity());
-  }
-
-  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
-    if (!control.value) {
-      return { required: true };
-    } else if (control.value !== this.validateForm.controls.password.value) {
-      return { confirm: true, error: true };
-    }
-    return {};
-  };
-
   getCaptcha(e: MouseEvent): void {
     e.preventDefault();
   }
 
-  showInput(value: string): void {
-    if (value == 'sql') {
-      this.teste = true;
-    }
-    else {
-      this.teste = false;
-    }
-  }
-
   changePlaceholder(value: string): void {
-    if (value == 'sql') {
-      this.placeholderVar = 'Exemplo sql';
+    if (value == 'mssqlserver') {
+      this.placeholderVar = 'jbdc:mssqlserver:://${hostname}:${port}/${databaseName}';
     }
-    if (value == 'mongo') {
-      this.placeholderVar = 'Exemplo mongo';
+    if (value == 'oracle') {
+      this.placeholderVar = 'jbdc:oracle:://${hostname}:${port}/${databaseName}';
+    }
+    if (value == 'postgresql'){
+      this.placeholderVar = 'jbdc:postgresql:://${hostname}:${port}/${databaseName}';
+    }
+    if (value == 'mysql'){
+      this.placeholderVar = 'jbdc:mysql:://${hostname}:${port}/${databaseName}';
     }
   };
 
@@ -59,15 +43,15 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      email: [null, [Validators.email, Validators.required]],
-      password: [null, [Validators.required]],
-      checkPassword: [null, [Validators.required, this.confirmationValidator]],
-      nickname: [null, [Validators.required]],
-      website: [null, [Validators.required]],
       url: [null],
+      servidor: [null, Validators.required],
+      porta: [null, Validators.required],
+      base: [null, Validators.required],
+      usuario: [null, Validators.required],
+      senha: [null],
+      classeServer: [null],
+      
       banco: [null],
-      agree: [false],
-      porta: [null]
     });
   }
 }
